@@ -1,0 +1,40 @@
+{%include 'navbar.html'%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <form action="add_blogs_handler" method="get">
+        Title<input type="text" name="Name" id=""><br>
+        <br>
+        Author<input type="text" name="Author" id=""><br>
+        <br>
+        Description<input type="text" name="description" id=""><br>
+        <br>
+        No of Lines <input type="number" name="no_of_lines" id=""><br>
+        <input type="submit" value="submit"><br>
+    
+    </form>
+    
+    <br>
+    <hr>
+    
+    <form action="delete_blogs_handler" method="get">
+        ID<input type="number" name="id_1" id=""><br>
+        <input type="submit" value="submit"><br>
+       
+    </form>
+    <p style='color: blue;'>  {{response_1}}</p>
+    <p style='color: crimson;'>  {{response}}</p>
+   
+
+
+
+</body>
+</html>
