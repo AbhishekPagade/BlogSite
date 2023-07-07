@@ -7,6 +7,7 @@ class BlogContent(models.Model):
     description= models.CharField(max_length =100)
     author=models.CharField(max_length=100)
     no_of_lines = models.IntegerField()
+    image=models.ImageField(upload_to='images/',default='images/default_blog.png')
 
     def __str__(self):
         return self.title
