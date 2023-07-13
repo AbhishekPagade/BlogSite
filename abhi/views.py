@@ -65,7 +65,7 @@ def submit(request):
 
 def modelsForm(request):
     success=''
-    form=ModelsDemoForm(request.POST or None)
+    form=ModelsDemoForm(request.POST , request.FILES or None)
     if form.is_valid():
         form.save()
         success='form saved successfully....!'
