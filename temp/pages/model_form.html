@@ -7,12 +7,16 @@
     <title>Document</title>
 </head>
 <body>
+    {% if user.is_authenticated %}
     <form method="POST" enctype="multipart/form-data">
         {{form1.as_p}}
         {% csrf_token %}
         <input type="SUBMIT">
     </form>
-
+    {%else%}
+    <p>please log in </p>
+    {% endif%}
+    
     {{success1}}
 </body>
 </html>

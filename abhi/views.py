@@ -28,7 +28,7 @@ def add_blog(request):
 def add_blogs_handler(request):
     if request.GET.get('Name'):
         title_r=request.GET.get('Name')
-        author_r=request.GET.get('Author')
+        author_r=request.user
         description_r=request.GET.get('description')
         no_of_lines_r = request.GET.get('no_of_lines')
 
@@ -67,7 +67,7 @@ def modelsForm(request):
     success=''
     form=ModelsDemoForm(request.POST , request.FILES or None)
     if form.is_valid():
-        form.save()
+        form.save(request.user)
         success='form saved successfully....!'
     context={'form1':form , 'success1':success}
     return render (request,'pages/model_form.html',context)

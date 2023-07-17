@@ -12,7 +12,7 @@ class ModelsDemoForm(ModelForm):
     class Meta:
         model = BlogContent
 
-        fields = '__all__'
+        fields = ['title','description','no_of_lines','image']
 
         
 
