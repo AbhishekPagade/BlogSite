@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .test import testForm
 from .test import ModelsDemoForm
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -24,7 +25,7 @@ def add_blog(request):
 
 
 
-
+@login_required(login_url='/admin/')
 def add_blogs_handler(request):
     if request.GET.get('Name'):
         title_r=request.GET.get('Name')
@@ -41,7 +42,7 @@ def add_blogs_handler(request):
     
 
 
-
+@login_required(login_url='/admin/')
 def delete_blogs_handler(request):
     if request.GET.get('id_1'):
         ID_r=request.GET.get('id_1')
@@ -67,27 +68,38 @@ def modelsForm(request):
     success=''
     form=ModelsDemoForm(request.POST , request.FILES or None)
     if form.is_valid():
-        form.save(request.user)
+        obj=form.save(commit=False)
+        obj.author=request.user
+        form.save()
         success='form saved successfully....!'
     context={'form1':form , 'success1':success}
     return render (request,'pages/model_form.html',context)
 
-
+@login_required(login_url='/admin/')
 def delete_by_id(request,id):
-    BlogContent.objects.get(pk=id).delete()
-    success='Deleted Successfully...!'
+    obj=BlogContent.objects.get(id=id)
+    if obj.author==request.user:
+        BlogContent.objects.get(pk=id).delete()
+        success='Deleted Successfully...!'
+    else:
+        success="You cannot delete this Blog"    
     return render(request,'pages/blogs.html',{'success1':success})
 
-
+@login_required(login_url='/admin/')
 def update_blog(request ,id):
     obj=BlogContent.objects.get(id=id)
+    if obj.author==request.user:
+        pass
+    else:
+        return HttpResponse("You cannot edit this")
+
     return render (request,'pages/updateBlog.html',{'data':obj})
 
 def update_data(request,id):
     success=''
     c_id=id
     c_title=request.POST.get('Name')
-    c_author=request.POST.get('author')
+    c_author=request.user
     c_description=request.POST.get('description')
     c_no_of_line=request.POST.get('no_of_lines')
   

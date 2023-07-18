@@ -12,8 +12,7 @@
     <form action="/update_data/{{data.id}}" method="POST">
         {%csrf_token%}
         Title<input type="text" name="Name" value="{{data.title}}" id=""><br>
-        <br>
-        Author<input type="text" name="author" value="{{data.author}}" id=""><br>
+        
         <br>
         Description<input type="text" value="{{data.description}}" name="description" id=""><br>
         <br>
